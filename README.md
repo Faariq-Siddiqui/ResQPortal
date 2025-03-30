@@ -6,16 +6,21 @@ ResQTech is an advanced **🚨 disaster monitoring and management platform** for
 
 ## 🚀 Key Features
 
-✅ **📡 Live Disaster Monitoring & Alerts** - Stay informed with **real-time** disaster updates.\
-✅ **🌍 Interactive Disaster Map** - View disaster-prone areas on an intuitive **map-based dashboard.**\
-✅ **🤝 Community Help System** - Connect with others and **report disasters effortlessly.**\
-✅ **📖 Disaster Mitigation Guides** - Learn **how to prepare and respond** to disasters.\
-✅ **🚑 Emergency Services Directory** - Access **helpline numbers and essential resources.**\
-✅ **🌤 Real-time Weather Updates** - Get the **latest forecasts** and disaster warnings.
+✅ **Live Disaster Monitoring & Alerts** 📡 - Stay informed with **real-time** disaster updates.
+
+✅ **Interactive Disaster Map** 🌍 - View disaster-prone areas on an intuitive **map-based dashboard.**
+
+✅ **Community Help System** 🤝 - Connect with others and **report disasters effortlessly.**
+
+✅ **Disaster Mitigation Guides** 📖  - Learn **how to prepare and respond** to disasters.
+
+✅ **Emergency Services Directory** 🚑  - Access **helpline numbers and essential resources.**
+
+✅ **Real-time Weather Updates** 🌤 - Get the **latest forecasts** and disaster warnings.
 
 ---
 
-## 🛠 Tech Stack
+
 ## 🛠 Tech Stack
 
 ![React](https://img.shields.io/badge/React-%2361DAFB.svg?style=plastic&logo=react&logoColor=black)
@@ -70,7 +75,7 @@ REACT_APP_NOAA_API_KEY=your_key
 
 🔹 Pull requests are **welcome!** For major changes, open an issue first to discuss the proposal.\
 🔹 Follow the project's **coding guidelines and best practices.**\
-🔹 Make sure to **test your changes** before submitting a PR.
+🔹 Make sure to **test your changes** before submitting a Pull Request.
 
 ---
 
