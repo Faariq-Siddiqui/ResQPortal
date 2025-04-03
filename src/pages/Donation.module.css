@@ -16,6 +16,9 @@
   --border-accent: rgba(255, 193, 7, 0.2);
   --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.1);
+  --card-gradient: linear-gradient(135deg, rgba(255, 249, 196, 0.3) 0%, rgba(255, 224, 130, 0.3) 100%);
+  --card-border-active: linear-gradient(90deg, rgba(255, 179, 0, 0.7), rgba(255, 213, 79, 0.7));
+  --card-highlight: #ffd54f;
 }
 
 .darkTheme {
@@ -35,6 +38,9 @@
   --border-accent: rgba(59, 130, 246, 0.2);
   --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.2);
   --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.2);
+  --card-gradient: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+  --card-border-active: linear-gradient(90deg, rgba(37, 99, 235, 0.7), rgba(59, 130, 246, 0.7));
+  --card-highlight: #3b82f6;
 }
 
 /* Theme Toggle Button */
@@ -133,7 +139,8 @@
 }
 
 .card {
-  background-color: var(--bg-card);
+  background: var(--bg-card);
+  background-image: var(--card-gradient);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow-sm);
@@ -153,12 +160,39 @@
   border-color: var(--border-accent);
 }
 
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
 .imageContainer {
   height: 180px;
   width: 100%;
   background-size: cover;
   background-position: center;
   border-bottom: 1px solid var(--border-light);
+  position: relative;
+}
+
+.imageContainer::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(to top, var(--bg-card), transparent);
 }
 
 .cardContent {
@@ -167,6 +201,8 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  justify-content: center;
+  align-items: center;
 }
 
 .cardTitle {
@@ -175,6 +211,20 @@
   color: var(--text-primary);
   margin-bottom: 0.5rem;
   text-align: center;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.cardTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 2px;
+  background: var(--card-highlight);
+  border-radius: 2px;
 }
 
 .details {
@@ -294,6 +344,19 @@
   font-size: 2.5rem;
   margin-bottom: 20px;
   color: var(--text-primary);
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.expandedTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--accent-primary);
+  border-radius: 2px;
 }
 
 .expandedSection {
@@ -337,7 +400,7 @@
 
 .expandedDonateButton {
   display: inline-block;
-  background-color: var(--accent-donate);
+  background: var(--accent-button);
   color: white;
   padding: 15px 40px;
   margin-top: 20px;
@@ -346,11 +409,15 @@
   border-radius: 8px;
   font-size: 1.2rem;
   text-align: center;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
+  border: 1px solid var(--border-accent);
+  box-shadow: 0 4px 6px var(--border-accent);
 }
 
 .expandedDonateButton:hover {
-  background-color: var(--accent-donate-hover);
+  background: var(--accent-button-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px var(--border-accent);
 }
 
 .expandedCard, .card.expanded .details {

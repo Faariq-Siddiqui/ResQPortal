@@ -1,10 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Donation.module.css';
+import Header from "../components/Header"; // Import the shared Header component
+import Footer from "../components/Footer"; // Import the shared Footer component
+import ChatBot from "../components/ChatBot"; // Import the shared ChatBot component
 
 const Donation = () => {
   const [expandedDisasterId, setExpandedDisasterId] = useState(null);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
-  
+
+  // Load theme preference from localStorage on component mount
+  useEffect(() => {
+    // Check if there's a system-wide theme preference
+    const savedTheme = localStorage.getItem('appTheme') || localStorage.getItem('donationTheme');
+    if (savedTheme) {
+      setIsDarkTheme(savedTheme === 'dark');
+    } else {
+      // Check for system preference if no saved preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setIsDarkTheme(prefersDark);
+    }
+  }, []);
+
   const disasters = [
     {
       id: 1,
@@ -62,21 +78,6 @@ const Donation = () => {
     }
   ];
 
-  // Theme toggle function
-  const toggleTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
-    // Save preference to localStorage
-    localStorage.setItem('donationTheme', !isDarkTheme ? 'dark' : 'light');
-  };
-  
-  // Load theme preference from localStorage on component mount
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('donationTheme');
-    if (savedTheme) {
-      setIsDarkTheme(savedTheme === 'dark');
-    }
-  }, []);
-
   // Close expanded card when clicking outside
   const handleBackdropClick = (e) => {
     if (e.target.classList.contains(styles.expandedOverlay)) {
@@ -85,37 +86,36 @@ const Donation = () => {
   };
 
   return (
-    <div className={`${styles.container} ${isDarkTheme ? styles.darkTheme : styles.lightTheme}`}>
-      {/* Theme Toggle Button */}
-      <button 
-        className={styles.themeToggle}
-        onClick={toggleTheme}
-        aria-label={isDarkTheme ? "Switch to light theme" : "Switch to dark theme"}
-      >
-        {isDarkTheme ? '☀️' : '🌙'}
-      </button>
-      
-      <div className={styles.headerBox}>
-        <h1 className={styles.heading}>Disaster Donation Portal</h1>
-        <p className={styles.subHeading}>Click on a disaster to view details and contribute</p>
-      </div>
-
-      <div className={styles.gridContainer}>
-        {disasters.map((disaster) => (
-          <div 
-            key={disaster.id}
-            className={styles.card}
-            onClick={() => setExpandedDisasterId(expandedDisasterId === disaster.id ? null : disaster.id)}
-          >
-            <div className={styles.imageContainer} 
-                 style={{ backgroundImage: `url(${process.env.PUBLIC_URL}${disaster.image})` }} />
-            
-            <div className={styles.cardContent}>
-              <h2 className={styles.cardTitle}>{disaster.title}</h2>
-            </div>
+    <div className={`min-h-screen flex flex-col ${isDarkTheme ? styles.darkTheme : styles.lightTheme}`}>
+      <Header />
+      <main className="flex-grow p-2 sm:p-5 pt-16 mb-16 md:ml-48">
+        <div className={styles.container}>
+          <div className={styles.headerBox}>
+            <h1 className={styles.heading}>Disaster Donation Portal</h1>
+            <p className={styles.subHeading}>Click on a disaster to view details and contribute</p>
           </div>
-        ))}
-      </div>
+
+          <div className={styles.gridContainer}>
+            {disasters.map((disaster) => (
+              <div 
+                key={disaster.id}
+                className={styles.card}
+                onClick={() => setExpandedDisasterId(disaster.id)}
+              >
+                <div className={styles.imageContainer} 
+                     style={{ backgroundImage: `url(${process.env.PUBLIC_URL}${disaster.image})` }} />
+                
+                <div className={styles.cardContent}>
+                  <h2 className={styles.cardTitle}>{disaster.title}</h2>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </main>
+      
+      <Footer />
+      <ChatBot />
 
       {/* Expanded Card Modal */}
       {expandedDisasterId && (
