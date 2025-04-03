@@ -105,7 +105,7 @@ const Donation = () => {
           <div 
             key={disaster.id}
             className={styles.card}
-            onClick={() => setExpandedDisasterId(disaster.id)}
+            onClick={() => setExpandedDisasterId(expandedDisasterId === disaster.id ? null : disaster.id)}
           >
             <div className={styles.imageContainer} 
                  style={{ backgroundImage: `url(${process.env.PUBLIC_URL}${disaster.image})` }} />
